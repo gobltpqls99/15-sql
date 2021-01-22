@@ -1,5 +1,28 @@
-extents ../layout/default.pug 
+extends ../layout/default.pug
 
 block content
-	h2.title 도시 리스트
-		
+	.wrapper
+		h2.title 도시 리스트
+		a(href="/city/create").btn.btn-primary.text-light.mb-2 도시등록
+		table.city-wrap.table.table-striped.text-center
+			thead.thead-light
+				tr
+					th 번호
+					th 도시명
+					th 도시설명
+					th 위치
+					th 인구
+					th 관리
+			tbody
+				each v in data
+					tr
+						td= v.id
+						td= v.name
+						td.text-left= v.summary
+						td= `위도: ${v.lat}, 경도: ${v.lon}`
+						td.text-right= v.population
+						td
+							a(href=`javascript:onRemove(${v.id})`).mr-2
+								i.fa.fa-trash-alt
+							a(href=`/city/update/${v.id}`)
+								i.fa.fa-edit
